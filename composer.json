@@ -1,0 +1,13 @@
+{
+    "name": "fifthgate/objectivity-string-tokens",
+    "description": "A simple service to allow easy manipulation of tokens within a string for mailmerge-like functionality.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam@fifthgate.net"
+        }
+    ],
+    "require": {}
+}
