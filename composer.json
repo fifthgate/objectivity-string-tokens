@@ -9,5 +9,27 @@
             "email": "sam@fifthgate.net"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "orchestra/testbench": "^6.18"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fifthgate\\Objectivity\\StringTokens\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fifthgate\\Objectivity\\StringTokens\\Tests\\": "tests",
+            "Fifthgate\\Objectivity\\StringTokens\\Tests\\Mocks\\": "tests/mocks"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/fifthgate/objectivity-core"
+        }
+    ],
+    "require": {
+        "fifthgate/objectivity-core": "^0.2.8"
+    }
 }
