@@ -3,8 +3,12 @@
 namespace Fifthgate\Objectivity\StringTokens\Service\Factories;
 
 use Fifthgate\Objectivity\StringTokens\Service\Factories\Exceptions\InvalidStringTokenConfigException;
-
+use \ReflectionClass;
 use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
+use \ReflectionException;
+use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
+use Fifthgate\Objectivity\StringTokens\Domain\Collection\StringTokenDefinitionCollection;
+use Fifthgate\Objectivity\StringTokens\Service\TokenService;
 
 /**
  * Builds and populates a TokenServiceInterface-compatible TokenService.
@@ -24,8 +28,13 @@ class StringTokenServiceFactory
     {
         $this->validateConfig($config);
         
-        var_dump($config);
-        die("Factory invoked");
+        //Validation safely passed, we continue to build the system.
+        $definitionCollection = new StringTokenDefinitionCollection;
+
+        foreach ($config['tokens'] as $tokenMachineName => $tokenClassName) {
+            $definitionCollection->add(new $tokenClassName());
+        }
+        return new TokenService($definitionCollection);
     }
 
     public function validateConfig(array $config)
@@ -40,31 +49,24 @@ class StringTokenServiceFactory
             if (!isset($config['tokens'])) {
                 throw new InvalidStringTokenConfigException("The configuration is missing the 'tokens' key");
             } else {
-                $tokenDefinitionRequiredfields = [
-                    'weight' => 'int',
-                    'label' => 'string',
-                    'description' => 'string',
-                    'class' => 'class'
-                ];
-
-                foreach ($tokenDefinitionRequiredfields as $fieldName => $type) {
-                    if (!isset($config['tokens'][$fieldName])) {
-                        throw new InvalidStringTokenConfigException("The field '{$fieldName}' is required");
+                foreach ($config['tokens'] as $tokenMachineName => $className) {
+                    $classFound = true;
+                    try {
+                        $reflection = new ReflectionClass($className);
+                    } catch (ReflectionException $e) {
+                        $classFound = false;
+                    }
+                    
+                    if (!$classFound) {
+                        throw new InvalidStringTokenConfigException("The token '{$tokenMachineName}' references the class '{$className}', which does not exist");
                     } else {
-                        switch ($type) {
-                            case 'int':
-                                if (!is_int($config['tokens'][$fieldName])) {
-                                    throw new InvalidStringTokenConfigException("The field '{$fieldName}' must be an integer");
-                                }
-                                break;
-                            case 'string':
-                                if (!is_string($config['tokens'][$fieldName])) {
-                                    throw new InvalidStringTokenConfigException("The field '{$fieldName}' must be a string");
-                                }
-                                break;
-                            default:
-                                throw new InvalidStringTokenConfigException("The field '{$fieldName}' is of the unknown type '{$type}'");
-                                break;
+                        if (!$reflection->isInstantiable()) {
+                            throw new InvalidStringTokenConfigException("The field '{$tokenMachineName}' references the class '{$className}', which is not instantiable");
+                        } else {
+                            $class = new $className();
+                            if (!$class instanceof StringTokenDefinitionInterface) {
+                                throw new InvalidStringTokenConfigException("The field '{$tokenMachineName}' references the class '{$className}'. The class exists and is instantiable, but does not implement StringTokenDefinitionInterface");
+                            }
                         }
                     }
                 }
@@ -75,8 +77,9 @@ class StringTokenServiceFactory
         }
 
         if (!$isValid) {
-            $message = implode(", ", $errors);
-            throw new InvalidStringTokenConfigException("The Token Service Config is invalid, for the following reasons: {$message}. \n The Service cannot start.");
+            $message = "* ";
+            $message .= implode(",\n* ", $errors);
+            throw new InvalidStringTokenConfigException("The Token Service Config is invalid, for the following reasons:\n {$message}. \n The Service cannot start.");
         }
     }
 }
