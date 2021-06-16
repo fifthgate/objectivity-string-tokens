@@ -3,15 +3,19 @@
 namespace Fifthgate\Objectivity\StringTokens\Tests;
 
 use Orchestra\Testbench\TestCase;
+use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
+use Fifthgate\Objectivity\StringTokens\Service\StringTokenServiceProvider;
 
 abstract class ObjectivityStringTokensTestCase extends TestCase
 {
 
+    protected TokenServiceInterface $tokenService;
+
     protected function getPackageProviders($app)
     {
-        /*return [
-            SmartMenuServiceProvider::class
-        ];*/
+        return [
+            StringTokenServiceProvider::class
+        ];
     }
 
     protected function getEnvironmentSetUp($app)
@@ -32,6 +36,6 @@ abstract class ObjectivityStringTokensTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //$this->menuService = $this->app->get(MenuServiceInterface::class);
+        $this->tokenService = $this->app->get(TokenServiceInterface::class);
     }
 }
