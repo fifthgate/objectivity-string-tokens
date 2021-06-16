@@ -17,6 +17,11 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
         $service = new TokenService($collection);
 
         $this->assertEquals($service->getTokenByMachineName('mocktoken'), $mockToken);
+        $this->assertEquals($service->getTokenByPlaceholder('mock_token'), $mockToken);
         $this->assertNull($service->getTokenByMachineName('faketoken'));
+
+        $inputText = "Lorem ipsum dolor sit amet, ad conspectitur adelescing [mock_token]";
+        $outputText = $service->processTokens($inputText);
+        $this->assertEquals("Lorem ipsum dolor sit amet, ad conspectitur adelescing Wo0t!", $outputText);
     }
 }

@@ -6,5 +6,32 @@ use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionIn
 
 interface TokenServiceInterface
 {
+     /**
+     * Retrieve an individual token by its machine name.
+     *
+     * @param  string $tokenMachineName A token machine name
+     *
+     * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
+     */
     public function getTokenByMachineName(string $tokenMachineName) : ? StringTokenDefinitionInterface;
+
+    /**
+     * Retrieve an individual token by its placeholder.
+     *
+     * @param  string $tokenPlaceholder A token placeholder
+     *
+     * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
+     */
+    public function getTokenByPlaceholder(string $tokenPlaceholder) : ? StringTokenDefinitionInterface;
+
+    /**
+     * Process a string to detect and replace tokens within it.
+     *
+     * @param  string $input          The Input string
+     * @param  array  $tokenWhitelist A list of tokens allowed for this substitution. If empty, all tokens are allowed.
+     * @param  mixed  $context        A contect object required by the token.
+     *
+     * @return string                 The string, with substitutions made.
+     */
+    public function processTokens(string $input, array $tokenWhitelist = [], $context = null) : string;
 }

@@ -15,6 +15,30 @@ class TokenService implements TokenServiceInterface
         $this->tokenDefinitions = $tokenDefinitions;
     }
 
+    /**
+     * Retrieve an individual token by its placeholder.
+     *
+     * @param  string $tokenPlaceholder A token placeholder
+     *
+     * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
+     */
+    public function getTokenByPlaceholder(string $tokenPlaceholder) : ? StringTokenDefinitionInterface
+    {
+        foreach ($this->tokenDefinitions as $tokenDefinition) {
+            if ($tokenDefinition->getTokenPlaceholder() == $tokenPlaceholder) {
+                return $tokenDefinition;
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Retrieve an individual token by its machine name.
+     *
+     * @param  string $tokenMachineName A token machine name
+     *
+     * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
+     */
     public function getTokenByMachineName(string $tokenMachineName) : ? StringTokenDefinitionInterface
     {
         foreach ($this->tokenDefinitions as $tokenDefinition) {
@@ -22,6 +46,110 @@ class TokenService implements TokenServiceInterface
                 return $tokenDefinition;
             }
             return null;
+        }
+    }
+
+    /**
+     * Process a string to detect and replace tokens within it.
+     *
+     * @param  string $input          The Input string
+     * @param  array  $tokenWhitelist A list of tokens allowed for this substitution. If empty, all tokens are allowed.
+     * @param  mixed  $context        A contect object required by the token.
+     *
+     * @return string                 The string, with substitutions made.
+     */
+    public function processTokens(string $input, array $tokenWhitelist = [], $context = null) : string
+    {
+        $detectedTokens = $this->detectTokens($input);
+        
+        if (!empty($tokenWhitelist)) {
+            $tokensToProcess = [];
+            foreach ($detectedTokens as $token) {
+                if (in_array($token->getMachineName(), $tokenWhitelist)) {
+                    $tokensToProcess[$token->getMachineName()] = $token;
+                }
+            }
+        } else {
+            $tokensToProcess = $detectedTokens;
+        }
+
+        if (!empty($tokensToProcess)) {
+            $output = $input;
+            foreach ($tokensToProcess as $token) {
+                $output = $token->processToken($output, $context);
+            }
+            return $output;
+        }
+        return $input;
+    }
+
+
+
+    /**
+     * Detect all the tokens within an input string.
+     *
+     * @param  string $input The input string.
+     *
+     * @return array|null An array of token objects, ready for processing, or null if no tokens were detected,
+     */
+    protected function detectTokens(string $input): ? array
+    {
+        $tokenDetectionPattern =  '/\[(.*?)\]/';
+        
+        preg_match_all($tokenDetectionPattern, $input, $detectedTokens);
+
+        if (!empty($detectedTokens)) {
+            $possibleTokens = $this->flattenStripAndDeduplicateTokens($detectedTokens);
+            $tokenManifest = [];
+            foreach ($possibleTokens as $possibleToken) {
+                if ($this->getTokenByPlaceholder($possibleToken)) {
+                    $tokenManifest[$possibleToken] = $this->getTokenByPlaceholder($possibleToken);
+                }
+            }
+            return $tokenManifest;
+        }
+        return null;
+    }
+
+    /**
+     * A utility function to flatten tokens into a more usable structure.
+     *
+     * @param  array  $tokens An array of detected tokens.
+     *
+     * @return [type]         [description]
+     */
+    protected function flattenStripAndDeduplicateTokens(array $tokens)
+    {
+     
+        $flattenedTokens = [];
+        //Process through our initial list.
+        foreach ($tokens as $delta => $token) {
+            if (is_string($token)) {
+                $flattenedTokens[] = $token;
+            } elseif (is_array($token)) {
+                $this->recursiveFlatten($token, $flattenedTokens);
+            }
+        }
+        $strippedTokens = [];
+        if (!empty($flattenedTokens)) {
+            foreach ($flattenedTokens as $flattenedToken) {
+                $strippedToken = str_replace('[', '', $flattenedToken);
+                $strippedToken = str_replace(']', '', $strippedToken);
+                $strippedTokens[] = $strippedToken;
+            }
+        }
+
+        return array_unique($strippedTokens);
+    }
+
+    protected function recursiveFlatten(array $subtokens, array &$flattenedTokens = [])
+    {
+        foreach ($subtokens as $subtoken) {
+            if (is_string($subtoken)) {
+                $flattenedTokens[] = $subtoken;
+            } elseif (is_array($subtoken)) {
+                $this->recursiveFlatten($subtoken, $flattenedTokens);
+            }
         }
     }
 }
