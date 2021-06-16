@@ -12,6 +12,7 @@ class StringTokenEntityTest extends ObjectivityStringTokensTestCase
         $definition = new MockTokenDefinition;
 
         $this->assertEquals('Mock Token Name', $definition->getTokenName());
+        $this->assertEquals('mocktoken', $definition->getTokenMachineName());
         $this->assertEquals('Mock Token Description', $definition->getTokenDescription());
         $this->assertEquals('mock_token', $definition->getTokenPlaceholder());
         $this->assertEquals("Mock token Wo0t! goes here", $definition->processToken("Mock token [mock_token] goes here"));

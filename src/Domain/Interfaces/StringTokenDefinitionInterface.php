@@ -12,5 +12,7 @@ interface StringTokenDefinitionInterface extends DomainEntityInterface
 
     public function getTokenPlaceholder() : string;
 
+    public function getTokenMachineName() : string;
+
     public function processToken(string $input, $context = null) : string;
 }

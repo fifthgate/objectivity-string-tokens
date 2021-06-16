@@ -13,6 +13,8 @@ abstract class AbstractStringTokenDefinition extends AbstractDomainEntity implem
 
     const TOKEN_PLACEHOLDER = 'abstracttokenplaceholder';
 
+    const TOKEN_MACHINE_NAME = 'abstracttoken';
+
     public function getTokenName() : string
     {
         return $this::TOKEN_NAME;
@@ -26,5 +28,10 @@ abstract class AbstractStringTokenDefinition extends AbstractDomainEntity implem
     public function getTokenPlaceholder() : string
     {
         return $this::TOKEN_PLACEHOLDER;
+    }
+
+    public function getTokenMachineName() : string
+    {
+        return $this::TOKEN_MACHINE_NAME;
     }
 }
