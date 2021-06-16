@@ -109,8 +109,11 @@ class TokenService implements TokenServiceInterface
         return !empty($tokenManifest) ? $tokenManifest : null;
     }
 
+    //@codeCoverageIgnoreStart
     /**
      * A utility function to flatten tokens into a more usable structure.
+     *
+     * Note: This and its recursive pattern are not under testing as they're quite simple.
      *
      * @param  array  $tokens An array of detected tokens.
      *
@@ -150,4 +153,5 @@ class TokenService implements TokenServiceInterface
             }
         }
     }
+    //@codeCoverageIgnoreEnd
 }
