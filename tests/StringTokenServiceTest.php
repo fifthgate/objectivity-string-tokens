@@ -11,8 +11,19 @@ use Carbon\Carbon;
 
 class StringTokenServiceTest extends ObjectivityStringTokensTestCase
 {
+    private function makeDummyService()
+    {
+        $collection = new StringTokenDefinitionCollection;
+        $mockToken = new MockTokenDefinition;
+        $collection->add($mockToken);
+
+        $dateToken = new StartDateTokenDefinition;
+        $collection->add($dateToken);
+        return new TokenService($collection);
+    }
     public function testServiceConstruction()
     {
+        
         $collection = new StringTokenDefinitionCollection;
         $mockToken = new MockTokenDefinition;
         $collection->add($mockToken);
@@ -25,11 +36,27 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
         $this->assertEquals($service->getTokenByPlaceholder('mock_token'), $mockToken);
         $this->assertNull($service->getTokenByMachineName('faketoken'));
         $this->assertNull($service->getTokenByPlaceholder('faketoken'));
-        $this->assertNull($service->detectTokens('There are no tokens in this string'));
 
         $inputText = "Lorem ipsum dolor sit amet, ad conspectitur adelescing [mock_token], @ [start_date]";
         $date = new Carbon;
         $outputText = $service->processTokens($inputText, [], $date);
         $this->assertEquals("Lorem ipsum dolor sit amet, ad conspectitur adelescing Wo0t!, @ {$date->format('Y-m-d')}", $outputText);
+    }
+
+    public function testWhitelist()
+    {
+        $service = $this->makeDummyService();
+        $inputText = "Lorem ipsum dolor sit amet, ad conspectitur adelescing [mock_token], @ [start_date]";
+        $date = new Carbon;
+        $filteredOutputText = $service->processTokens($inputText, ['mocktoken'], $date);
+        $this->assertEquals("Lorem ipsum dolor sit amet, ad conspectitur adelescing Wo0t!, @ [start_date]", $filteredOutputText);
+    }
+
+    public function testInvalidTokens()
+    {
+        $service = $this->makeDummyService();
+        $inputText = 'There are no tokens in this string';
+        $this->assertNull($service->detectTokens($inputText));
+        $this->assertEquals($inputText, $service->processTokens($inputText));
     }
 }

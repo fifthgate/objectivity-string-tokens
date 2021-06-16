@@ -65,8 +65,8 @@ class TokenService implements TokenServiceInterface
         if (!empty($tokenWhitelist)) {
             $tokensToProcess = [];
             foreach ($detectedTokens as $token) {
-                if (in_array($token->getMachineName(), $tokenWhitelist)) {
-                    $tokensToProcess[$token->getMachineName()] = $token;
+                if (in_array($token->getTokenMachineName(), $tokenWhitelist)) {
+                    $tokensToProcess[$token->getTokenMachineName()] = $token;
                 }
             }
         } else {
