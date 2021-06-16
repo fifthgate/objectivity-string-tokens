@@ -15,6 +15,7 @@ class StartDateTokenDefinition extends AbstractStringTokenDefinition implements 
 
     public function processToken(string $input, $context = null) : string
     {
-        //
+
+        return str_replace($this->getEncapsulatedPlaceholder(), $context->format('Y-m-d'), $input);
     }
 }

@@ -34,4 +34,9 @@ abstract class AbstractStringTokenDefinition extends AbstractDomainEntity implem
     {
         return $this::TOKEN_MACHINE_NAME;
     }
+
+    public function getEncapsulatedPlaceholder() : string
+    {
+        return '['.$this::TOKEN_PLACEHOLDER.']';
+    }
 }
