@@ -5,6 +5,7 @@ namespace Fifthgate\Objectivity\StringTokens\Service;
 use Illuminate\Support\ServiceProvider;
 use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
 use Fifthgate\Objectivity\StringTokens\Service\TokenService;
+use Fifthgate\Objectivity\StringTokens\Service\Factories\StringTokenServiceFactory;
 
 class StringTokenServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,7 @@ class StringTokenServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                __DIR__.'/../config/objectivity-string-tokens-config.php' => config_path('objectivity-string-tokens-config.php'),
+                __DIR__.'/../../config/objectivity-string-tokens-config.php' => config_path('objectivity-string-tokens-config.php'),
             ],
             'objectivity-string-tokens'
         );
@@ -30,10 +31,17 @@ class StringTokenServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       
-        $this->app->bind(
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/objectivity-string-tokens-config.php',
+            'objectivity-string-tokens'
+        );
+
+        $this->app->singleton(
             TokenServiceInterface::class,
-            TokenService::class
+            function ($app) {
+                $factory = new StringTokenServiceFactory;
+                return $factory(config('objectivity-string-tokens'), config('app.debug', false));
+            }
         );
     }
 }

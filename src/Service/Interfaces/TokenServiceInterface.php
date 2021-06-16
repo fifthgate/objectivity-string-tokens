@@ -2,6 +2,6 @@
 
 namespace Fifthgate\Objectivity\StringTokens\Service\Interfaces;
 
-interface TokenServiceInterface {
-	
+interface TokenServiceInterface
+{
 }
