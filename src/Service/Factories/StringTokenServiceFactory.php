@@ -37,6 +37,7 @@ class StringTokenServiceFactory
         return new TokenService($definitionCollection);
     }
 
+    //@codeCoverageIgnoreStart
     public function validateConfig(array $config)
     {
         $isValid = true;
@@ -82,4 +83,5 @@ class StringTokenServiceFactory
             throw new InvalidStringTokenConfigException("The Token Service Config is invalid, for the following reasons:\n {$message}. \n The Service cannot start.");
         }
     }
+    //@codeCoverageIgnoreEnd
 }

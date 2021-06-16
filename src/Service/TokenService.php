@@ -28,8 +28,8 @@ class TokenService implements TokenServiceInterface
             if ($tokenDefinition->getTokenPlaceholder() == $tokenPlaceholder) {
                 return $tokenDefinition;
             }
-            return null;
         }
+        return null;
     }
 
     /**
@@ -45,8 +45,8 @@ class TokenService implements TokenServiceInterface
             if ($tokenDefinition->getTokenMachineName() == $tokenMachineName) {
                 return $tokenDefinition;
             }
-            return null;
         }
+        return null;
     }
 
     /**
@@ -92,23 +92,21 @@ class TokenService implements TokenServiceInterface
      *
      * @return array|null An array of token objects, ready for processing, or null if no tokens were detected,
      */
-    protected function detectTokens(string $input): ? array
+    public function detectTokens(string $input): ? array
     {
         $tokenDetectionPattern =  '/\[(.*?)\]/';
         
         preg_match_all($tokenDetectionPattern, $input, $detectedTokens);
 
-        if (!empty($detectedTokens)) {
-            $possibleTokens = $this->flattenStripAndDeduplicateTokens($detectedTokens);
-            $tokenManifest = [];
-            foreach ($possibleTokens as $possibleToken) {
-                if ($this->getTokenByPlaceholder($possibleToken)) {
-                    $tokenManifest[$possibleToken] = $this->getTokenByPlaceholder($possibleToken);
-                }
+        $possibleTokens = $this->flattenStripAndDeduplicateTokens($detectedTokens);
+        $tokenManifest = [];
+        foreach ($possibleTokens as $possibleToken) {
+            if ($this->getTokenByPlaceholder($possibleToken)) {
+                $tokenManifest[$possibleToken] = $this->getTokenByPlaceholder($possibleToken);
             }
-            return $tokenManifest;
         }
-        return null;
+        
+        return !empty($tokenManifest) ? $tokenManifest : null;
     }
 
     /**

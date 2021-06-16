@@ -19,6 +19,8 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
         $this->assertEquals($service->getTokenByMachineName('mocktoken'), $mockToken);
         $this->assertEquals($service->getTokenByPlaceholder('mock_token'), $mockToken);
         $this->assertNull($service->getTokenByMachineName('faketoken'));
+        $this->assertNull($service->getTokenByPlaceholder('faketoken'));
+        $this->assertNull($service->detectTokens('There are no tokens in this string'));
 
         $inputText = "Lorem ipsum dolor sit amet, ad conspectitur adelescing [mock_token]";
         $outputText = $service->processTokens($inputText);

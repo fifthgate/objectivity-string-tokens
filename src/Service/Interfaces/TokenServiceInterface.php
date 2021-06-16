@@ -25,6 +25,15 @@ interface TokenServiceInterface
     public function getTokenByPlaceholder(string $tokenPlaceholder) : ? StringTokenDefinitionInterface;
 
     /**
+     * Detect all the tokens within an input string.
+     *
+     * @param  string $input The input string.
+     *
+     * @return array|null An array of token objects, ready for processing, or null if no tokens were detected,
+     */
+    public function detectTokens(string $input): ? array;
+
+    /**
      * Process a string to detect and replace tokens within it.
      *
      * @param  string $input          The Input string
