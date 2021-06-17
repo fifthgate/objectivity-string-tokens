@@ -1,0 +1,47 @@
+<?php
+
+namespace {{ namespace }};
+
+use Fifthgate\Objectivity\StringTokens\Domain\AbstractStringTokenDefinition;
+use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
+
+/**
+ * This is your new StringToken.
+ */
+class {{ class }} extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface{
+
+	//The Human-readable name of the token.
+	const TOKEN_NAME = 'Token Name';
+
+	//The human-readable description of the token's functions.
+    const TOKEN_DESCRIPTION = 'Token Description';
+
+    //The placeholder the system will search for whilst making a substitution, WITHOUT the square brackets.
+    const TOKEN_PLACEHOLDER = 'tokenplaceholder';
+
+    //The machine name of the token. This should be all lowercase alphanumeric characters, with underscores and nothing else.
+    const TOKEN_MACHINE_NAME = 'token';	
+
+    /**
+     * Process this token
+     * 
+     * @param  string $input   The input string.
+     * @param  mixed $context  A context object. This could be anything; a string, an object, whatever it is that your token should operate on.
+     * @return string          The input string, with all instances of your token replaced with appropriate content.
+     */
+    public function processToken(string $input, $context = null) : string {
+    	//This is where the magic happens!
+    }
+
+    /**
+     * Is a given context usable for this token?
+     * 
+     * @param  mixed    $context A value passed to the tokenService as context on processing attempt.
+     * @return boolean           Return TRUE if this context will work with this token, or FALSE if otherwise.
+     */
+    public function isValidContext($context) : bool
+    {
+        //This value is provided for compatibility purposes. You MUST amend it for your token to work!
+        return false;
+    }
+}

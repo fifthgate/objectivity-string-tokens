@@ -76,7 +76,9 @@ class TokenService implements TokenServiceInterface
         if (!empty($tokensToProcess)) {
             $output = $input;
             foreach ($tokensToProcess as $token) {
-                $output = $token->processToken($output, $context);
+                if ($token->isValidContext($context)) {
+                    $output = $token->processToken($output, $context);
+                }
             }
             return $output;
         }

@@ -4,6 +4,7 @@ namespace Fifthgate\Objectivity\StringTokens\Domain;
 
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
 use Fifthgate\Objectivity\StringTokens\Domain\AbstractStringTokenDefinition;
+use \DateTimeInterface;
 
 class StartDateTokenDefinition extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface
 {
@@ -15,7 +16,11 @@ class StartDateTokenDefinition extends AbstractStringTokenDefinition implements 
 
     public function processToken(string $input, $context = null) : string
     {
-
         return str_replace($this->getEncapsulatedPlaceholder(), $context->format('Y-m-d'), $input);
+    }
+
+    public function isValidContext($context) : bool
+    {
+        return $context instanceof DateTimeInterface;
     }
 }

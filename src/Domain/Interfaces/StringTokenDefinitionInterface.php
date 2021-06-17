@@ -17,4 +17,6 @@ interface StringTokenDefinitionInterface extends DomainEntityInterface
     public function processToken(string $input, $context = null) : string;
 
     public function getEncapsulatedPlaceholder() : string;
+
+    public function isValidContext($context) : bool;
 }

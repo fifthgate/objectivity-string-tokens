@@ -20,4 +20,9 @@ class MockTokenDefinition extends AbstractStringTokenDefinition implements Strin
         $replacementString = "[".$this::TOKEN_PLACEHOLDER."]";
         return str_replace($replacementString, "Wo0t!", $input);
     }
+
+    public function isValidContext($context) : bool
+    {
+        return is_string($context);
+    }
 }
