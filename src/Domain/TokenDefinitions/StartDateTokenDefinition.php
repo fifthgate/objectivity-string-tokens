@@ -1,9 +1,9 @@
 <?php
 
-namespace Fifthgate\Objectivity\StringTokens\Domain;
+namespace Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions;
 
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
-use Fifthgate\Objectivity\StringTokens\Domain\AbstractStringTokenDefinition;
+use Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions\AbstractStringTokenDefinition;
 use \DateTimeInterface;
 
 class StartDateTokenDefinition extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface

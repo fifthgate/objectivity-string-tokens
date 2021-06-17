@@ -26,6 +26,7 @@ class StringTokenServiceFactory
      */
     public function __invoke(array $config, bool $testMode = false) : TokenServiceInterface
     {
+        
         $this->validateConfig($config);
         
         //Validation safely passed, we continue to build the system.
@@ -35,6 +36,7 @@ class StringTokenServiceFactory
             $definitionCollection->add(new $tokenClassName());
         }
         return new TokenService($definitionCollection);
+        //die("I got here");
     }
 
     //@codeCoverageIgnoreStart

@@ -2,6 +2,6 @@
 
 return [
     'tokens' => [
-        'start_date' => 'Fifthgate\Objectivity\StringTokens\Domain\StartDateTokenDefinition'
+        'start_date' => 'Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions\StartDateTokenDefinition'
     ]
 ];

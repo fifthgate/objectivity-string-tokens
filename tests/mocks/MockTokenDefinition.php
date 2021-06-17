@@ -3,7 +3,7 @@
 namespace Fifthgate\Objectivity\StringTokens\Tests\Mocks;
 
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
-use Fifthgate\Objectivity\StringTokens\Domain\AbstractStringTokenDefinition;
+use Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions\AbstractStringTokenDefinition;
 
 class MockTokenDefinition extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface
 {

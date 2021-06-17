@@ -1,6 +1,6 @@
 <?php
 
-namespace Fifthgate\Objectivity\StringTokens\Domain;
+namespace Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions;
 
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
 use Fifthgate\Objectivity\Core\Domain\AbstractDomainEntity;

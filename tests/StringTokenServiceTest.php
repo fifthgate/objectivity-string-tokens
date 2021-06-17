@@ -6,7 +6,7 @@ use Fifthgate\Objectivity\StringTokens\Tests\ObjectivityStringTokensTestCase;
 use Fifthgate\Objectivity\StringTokens\Service\TokenService;
 use Fifthgate\Objectivity\StringTokens\Domain\Collection\StringTokenDefinitionCollection;
 use Fifthgate\Objectivity\StringTokens\Tests\Mocks\MockTokenDefinition;
-use Fifthgate\Objectivity\StringTokens\Domain\StartDateTokenDefinition;
+use Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions\StartDateTokenDefinition;
 use Carbon\Carbon;
 
 class StringTokenServiceTest extends ObjectivityStringTokensTestCase
