@@ -33,17 +33,6 @@ class CreateStringToken extends GeneratorCommand
     {
         parent::__construct($files);
     }
- 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     *
-    public function handle()
-    {
-        $this->tokenName = $this->argument('tokenName');
-        $this->info($this->tokenName.' created successfully.');
-    }
 
     /**
      * Get the desired class name from the input.

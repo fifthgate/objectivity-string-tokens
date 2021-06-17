@@ -8,7 +8,8 @@ use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionIn
 /**
  * This is your new StringToken.
  */
-class {{ class }} extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface{
+class {{ class }} extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface
+{
 
 	//The Human-readable name of the token.
 	const TOKEN_NAME = 'Token Name';
@@ -20,7 +21,7 @@ class {{ class }} extends AbstractStringTokenDefinition implements StringTokenDe
     const TOKEN_PLACEHOLDER = 'tokenplaceholder';
 
     //The machine name of the token. This should be all lowercase alphanumeric characters, with underscores and nothing else.
-    const TOKEN_MACHINE_NAME = 'token';	
+    const TOKEN_MACHINE_NAME = 'token';
 
     /**
      * Process this token
@@ -29,7 +30,8 @@ class {{ class }} extends AbstractStringTokenDefinition implements StringTokenDe
      * @param  mixed $context  A context object. This could be anything; a string, an object, whatever it is that your token should operate on.
      * @return string          The input string, with all instances of your token replaced with appropriate content.
      */
-    public function processToken(string $input, $context = null) : string {
+    public function processToken(string $input, $context = null) : string
+    {
     	//This is where the magic happens!
     }
 

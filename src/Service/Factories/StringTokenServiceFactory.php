@@ -30,10 +30,7 @@ class StringTokenServiceFactory
         
         $this->validateConfig($config);
         //Validation safely passed, we continue to build the system.
-        $definitionCollection = new StringTokenDefinitionCollection;
-
-        
-        
+        $definitionCollection = new StringTokenDefinitionCollection;      
         foreach ($config['autoload_namespaces'] as $autoloadNamespace) {
             foreach (ClassFinder::getClassesInNamespace($autoloadNamespace) as $candidateClass) {
                 $class = new ReflectionClass($candidateClass);
