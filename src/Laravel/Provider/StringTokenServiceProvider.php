@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
 use Fifthgate\Objectivity\StringTokens\Service\TokenService;
 use Fifthgate\Objectivity\StringTokens\Service\Factories\StringTokenServiceFactory;
+use Fifthgate\Objectivity\StringTokens\Laravel\Commands\CreateStringToken;
 
 class StringTokenServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,10 @@ class StringTokenServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->commands([
+            CreateStringToken::class
+        ]);
+
         $this->mergeConfigFrom(
             __DIR__.'../../../../config/objectivity-string-tokens-config.php',
             'objectivity-string-tokens'
