@@ -4,7 +4,7 @@ namespace Fifthgate\Objectivity\StringTokens\Tests;
 
 use Orchestra\Testbench\TestCase;
 use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
-use Fifthgate\Objectivity\StringTokens\Service\StringTokenServiceProvider;
+use Fifthgate\Objectivity\StringTokens\Laravel\Provider\StringTokenServiceProvider;
 
 abstract class ObjectivityStringTokensTestCase extends TestCase
 {

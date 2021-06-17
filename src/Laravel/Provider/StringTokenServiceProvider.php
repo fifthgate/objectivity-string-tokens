@@ -1,6 +1,6 @@
 <?php
 
-namespace Fifthgate\Objectivity\StringTokens\Service;
+namespace Fifthgate\Objectivity\StringTokens\Laravel\Provider;
 
 use Illuminate\Support\ServiceProvider;
 use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
@@ -18,7 +18,7 @@ class StringTokenServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                __DIR__.'/../../config/objectivity-string-tokens-config.php' => config_path('objectivity-string-tokens-config.php'),
+                __DIR__.'../../../../config/objectivity-string-tokens-config.php' => config_path('objectivity-string-tokens-config.php'),
             ],
             'objectivity-string-tokens'
         );
@@ -32,7 +32,7 @@ class StringTokenServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/objectivity-string-tokens-config.php',
+            __DIR__.'../../../../config/objectivity-string-tokens-config.php',
             'objectivity-string-tokens'
         );
 
