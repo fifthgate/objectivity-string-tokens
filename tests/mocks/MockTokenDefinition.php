@@ -23,6 +23,6 @@ class MockTokenDefinition extends AbstractStringTokenDefinition implements Strin
 
     public function isValidContext($context) : bool
     {
-        return is_string($context);
+        return true;
     }
 }
