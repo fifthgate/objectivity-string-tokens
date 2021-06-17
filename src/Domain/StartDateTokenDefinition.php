@@ -19,7 +19,7 @@ class StartDateTokenDefinition extends AbstractStringTokenDefinition implements 
         return str_replace($this->getEncapsulatedPlaceholder(), $context->format('Y-m-d'), $input);
     }
 
-    public function isValidContext($context) : bool
+    public function isValidContext($context = null) : bool
     {
         return $context instanceof DateTimeInterface;
     }

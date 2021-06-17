@@ -21,7 +21,7 @@ class MockTokenDefinition extends AbstractStringTokenDefinition implements Strin
         return str_replace($replacementString, "Wo0t!", $input);
     }
 
-    public function isValidContext($context) : bool
+    public function isValidContext($context = null) : bool
     {
         return true;
     }

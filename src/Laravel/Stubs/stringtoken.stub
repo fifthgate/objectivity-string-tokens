@@ -36,10 +36,11 @@ class {{ class }} extends AbstractStringTokenDefinition implements StringTokenDe
     /**
      * Is a given context usable for this token?
      * 
-     * @param  mixed    $context A value passed to the tokenService as context on processing attempt.
+     * @param  mixed    $context A value passed to the tokenService as context on processing attempt. This can also be null.
+     * 
      * @return boolean           Return TRUE if this context will work with this token, or FALSE if otherwise.
      */
-    public function isValidContext($context) : bool
+    public function isValidContext($context = null) : bool
     {
         //This value is provided for compatibility purposes. You MUST amend it for your token to work!
         return false;

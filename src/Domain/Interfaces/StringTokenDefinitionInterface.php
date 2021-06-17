@@ -18,5 +18,5 @@ interface StringTokenDefinitionInterface extends DomainEntityInterface
 
     public function getEncapsulatedPlaceholder() : string;
 
-    public function isValidContext($context) : bool;
+    public function isValidContext($context = null) : bool;
 }

@@ -40,5 +40,5 @@ abstract class AbstractStringTokenDefinition extends AbstractDomainEntity implem
         return '['.$this::TOKEN_PLACEHOLDER.']';
     }
 
-    abstract public function isValidContext($context) : bool;
+    abstract public function isValidContext($context = null) : bool;
 }
