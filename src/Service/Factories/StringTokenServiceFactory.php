@@ -9,6 +9,7 @@ use \ReflectionException;
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
 use Fifthgate\Objectivity\StringTokens\Domain\Collection\StringTokenDefinitionCollection;
 use Fifthgate\Objectivity\StringTokens\Service\TokenService;
+use HaydenPierce\ClassFinder\ClassFinder;
 
 /**
  * Builds and populates a TokenServiceInterface-compatible TokenService.
@@ -28,16 +29,27 @@ class StringTokenServiceFactory
     {
         
         $this->validateConfig($config);
-        
         //Validation safely passed, we continue to build the system.
         $definitionCollection = new StringTokenDefinitionCollection;
 
-        foreach ($config['tokens'] as $tokenMachineName => $tokenClassName) {
-            $definitionCollection->add(new $tokenClassName());
+        
+        
+        foreach ($config['autoload_namespaces'] as $autoloadNamespace) {
+            foreach (ClassFinder::getClassesInNamespace($autoloadNamespace) as $candidateClass) {
+                $class = new ReflectionClass($candidateClass);
+                if (!$class->isAbstract() && $class->isInstantiable() && $class->implementsInterface(StringTokenDefinitionInterface::class)) {
+                    $definitionCollection->add(new $candidateClass());
+                }
+            }
         }
         return new TokenService($definitionCollection);
-        //die("I got here");
     }
+
+
+
+
+
+
 
     //@codeCoverageIgnoreStart
     public function validateConfig(array $config)
@@ -49,30 +61,10 @@ class StringTokenServiceFactory
             /**
              * Validation routine
              */
-            if (!isset($config['tokens'])) {
-                throw new InvalidStringTokenConfigException("The configuration is missing the 'tokens' key");
-            } else {
-                foreach ($config['tokens'] as $tokenMachineName => $className) {
-                    $classFound = true;
-                    try {
-                        $reflection = new ReflectionClass($className);
-                    } catch (ReflectionException $e) {
-                        $classFound = false;
-                    }
-                    
-                    if (!$classFound) {
-                        throw new InvalidStringTokenConfigException("The token '{$tokenMachineName}' references the class '{$className}', which does not exist");
-                    } else {
-                        if (!$reflection->isInstantiable()) {
-                            throw new InvalidStringTokenConfigException("The field '{$tokenMachineName}' references the class '{$className}', which is not instantiable");
-                        } else {
-                            $class = new $className();
-                            if (!$class instanceof StringTokenDefinitionInterface) {
-                                throw new InvalidStringTokenConfigException("The field '{$tokenMachineName}' references the class '{$className}'. The class exists and is instantiable, but does not implement StringTokenDefinitionInterface");
-                            }
-                        }
-                    }
-                }
+            if (!isset($config['autoload_namespaces'])) {
+                throw new InvalidStringTokenConfigException("The 'autoload_namespaces' key is not set. This is required for the stringTokens system to function");
+            } elseif (empty($config['autoload_namespaces'])) {
+                throw new InvalidStringTokenConfigException("The 'autoload_namespaces' key is empty. This is required for the stringTokens system to function");
             }
         } catch (InvalidStringTokenConfigException $e) {
             $isValid = false;
