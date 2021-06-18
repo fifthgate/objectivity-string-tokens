@@ -19,9 +19,8 @@ class StringTokenServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                __DIR__.'../../../../config/objectivity-string-tokens-config.php' => config_path('objectivity-string-tokens-config.php'),
-            ],
-            'objectivity-string-tokens'
+                __DIR__.'/../../../config/objectivity-string-tokens.php' => config_path('objectivity-string-tokens.php'),
+            ]
         );
     }
 
@@ -37,7 +36,7 @@ class StringTokenServiceProvider extends ServiceProvider
         ]);
 
         $this->mergeConfigFrom(
-            __DIR__.'../../../../config/objectivity-string-tokens-config.php',
+            __DIR__.'/../../../config/objectivity-string-tokens.php',
             'objectivity-string-tokens'
         );
 

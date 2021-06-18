@@ -61,8 +61,8 @@ class TokenService implements TokenServiceInterface
     public function processTokens(string $input, array $tokenWhitelist = [], $context = null) : string
     {
         $detectedTokens = $this->detectTokens($input);
-        
-        if (!empty($tokenWhitelist)) {
+
+        if (!empty($tokenWhitelist) && !empty($detectedTokens)) {
             $tokensToProcess = [];
             foreach ($detectedTokens as $token) {
                 if (in_array($token->getTokenMachineName(), $tokenWhitelist)) {
@@ -102,6 +102,7 @@ class TokenService implements TokenServiceInterface
 
         $possibleTokens = $this->flattenStripAndDeduplicateTokens($detectedTokens);
         $tokenManifest = [];
+
         foreach ($possibleTokens as $possibleToken) {
             if ($this->getTokenByPlaceholder($possibleToken)) {
                 $tokenManifest[$possibleToken] = $this->getTokenByPlaceholder($possibleToken);

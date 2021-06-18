@@ -27,11 +27,11 @@ class StringTokenServiceFactory
      */
     public function __invoke(array $config, bool $testMode = false) : TokenServiceInterface
     {
-        
-        $this->validateConfig($config);
-        //Validation safely passed, we continue to build the system.
-        $definitionCollection = new StringTokenDefinitionCollection;      
-        foreach ($config['autoload_namespaces'] as $autoloadNamespace) {
+
+        $definitionCollection = new StringTokenDefinitionCollection;
+        $config = array_unique($config);
+
+        foreach ($config as $autoloadNamespace) {
             foreach (ClassFinder::getClassesInNamespace($autoloadNamespace) as $candidateClass) {
                 $class = new ReflectionClass($candidateClass);
                 if (!$class->isAbstract() && $class->isInstantiable() && $class->implementsInterface(StringTokenDefinitionInterface::class)) {
@@ -39,40 +39,7 @@ class StringTokenServiceFactory
                 }
             }
         }
+        
         return new TokenService($definitionCollection);
     }
-
-
-
-
-
-
-
-    //@codeCoverageIgnoreStart
-    public function validateConfig(array $config)
-    {
-        $isValid = true;
-        $errors = [];
-
-        try {
-            /**
-             * Validation routine
-             */
-            if (!isset($config['autoload_namespaces'])) {
-                throw new InvalidStringTokenConfigException("The 'autoload_namespaces' key is not set. This is required for the stringTokens system to function");
-            } elseif (empty($config['autoload_namespaces'])) {
-                throw new InvalidStringTokenConfigException("The 'autoload_namespaces' key is empty. This is required for the stringTokens system to function");
-            }
-        } catch (InvalidStringTokenConfigException $e) {
-            $isValid = false;
-            $errors[] = $e->getMessage();
-        }
-
-        if (!$isValid) {
-            $message = "* ";
-            $message .= implode(",\n* ", $errors);
-            throw new InvalidStringTokenConfigException("The Token Service Config is invalid, for the following reasons:\n {$message}. \n The Service cannot start.");
-        }
-    }
-    //@codeCoverageIgnoreEnd
 }
