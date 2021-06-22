@@ -33,6 +33,14 @@ class TokenService implements TokenServiceInterface
     }
 
     /**
+     * Get a list of all valid tokens for a given context
+     */
+    public function getTokenDefinitions() : StringTokenDefinitionCollectionInterface
+    {
+        return $this->tokenDefinitions;
+    }
+
+    /**
      * Retrieve an individual token by its machine name.
      *
      * @param  string $tokenMachineName A token machine name

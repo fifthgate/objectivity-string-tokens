@@ -59,4 +59,17 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
         $this->assertNull($service->detectTokens($inputText));
         $this->assertEquals($inputText, $service->processTokens($inputText));
     }
+
+    public function testGetTokenDefinitions()
+    {
+
+        $collection = new StringTokenDefinitionCollection;
+        $mockToken = new MockTokenDefinition;
+        $collection->add($mockToken);
+
+        $dateToken = new StartDateTokenDefinition;
+        $collection->add($dateToken);
+        $service = new TokenService($collection);
+        $this->assertEquals($collection, $service->getTokenDefinitions());
+    }
 }

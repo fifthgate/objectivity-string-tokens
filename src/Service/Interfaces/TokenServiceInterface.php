@@ -3,6 +3,7 @@
 namespace Fifthgate\Objectivity\StringTokens\Service\Interfaces;
 
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
+use Fifthgate\Objectivity\StringTokens\Domain\Collection\Interfaces\StringTokenDefinitionCollectionInterface;
 
 interface TokenServiceInterface
 {
@@ -23,6 +24,12 @@ interface TokenServiceInterface
      * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
      */
     public function getTokenByPlaceholder(string $tokenPlaceholder) : ? StringTokenDefinitionInterface;
+
+
+    /**
+     * Get a list of all valid tokens for a given context
+     */
+    public function getTokenDefinitions() : StringTokenDefinitionCollectionInterface;
 
     /**
      * Detect all the tokens within an input string.
