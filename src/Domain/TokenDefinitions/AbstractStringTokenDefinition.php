@@ -41,4 +41,9 @@ abstract class AbstractStringTokenDefinition extends AbstractDomainEntity implem
     }
 
     abstract public function isValidContext($context = null) : bool;
+
+    public function getClassName() : string
+    {
+        return static::class;
+    }
 }

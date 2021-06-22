@@ -5,10 +5,9 @@ namespace Fifthgate\Objectivity\StringTokens\Tests;
 use Fifthgate\Objectivity\StringTokens\Tests\ObjectivityStringTokensTestCase;
 use Fifthgate\Objectivity\StringTokens\Tests\Mocks\MockTokenDefinition;
 use Fifthgate\Objectivity\StringTokens\Tests\Mocks\MockInvalidTokenDefinition;
-
 use Fifthgate\Objectivity\StringTokens\Tests\Mocks\MockDateTokenDefinition;
-
 use Fifthgate\Objectivity\StringTokens\Domain\Collection\StringTokenDefinitionCollection;
+use Fifthgate\Objectivity\StringTokens\Domain\Collection\Exceptions\StringTokenClashException;
 
 class StringTokenEntityTest extends ObjectivityStringTokensTestCase
 {
@@ -36,5 +35,15 @@ class StringTokenEntityTest extends ObjectivityStringTokensTestCase
         $date = new \DateTime;
         $this->assertEquals(1, $collection->filterByContextValidity($date)->count());
         $this->assertEquals($mockToken2, $collection->filterByContextValidity($date)->first());
+    }
+
+    public function testTokenClash()
+    {
+        $collection = new StringTokenDefinitionCollection;
+        $mockToken = new MockInvalidTokenDefinition;
+        $mockToken2 = new MockInvalidTokenDefinition;
+        $this->expectException(StringTokenClashException::class);
+        $collection->add($mockToken);
+        $collection->add($mockToken2);
     }
 }
