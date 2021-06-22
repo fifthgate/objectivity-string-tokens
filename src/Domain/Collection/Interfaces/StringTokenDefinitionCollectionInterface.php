@@ -6,4 +6,5 @@ use Fifthgate\Objectivity\Core\Domain\Collection\Interfaces\DomainEntityCollecti
 
 interface StringTokenDefinitionCollectionInterface extends DomainEntityCollectionInterface
 {
+    public function filterByContextValidity($context) : StringTokenDefinitionCollectionInterface;
 }
