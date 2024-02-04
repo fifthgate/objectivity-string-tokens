@@ -2,7 +2,7 @@
 
 namespace Fifthgate\Objectivity\StringTokens\Domain\Collection\Exceptions;
 
-use \Exception;
+use Exception;
 
 class StringTokenClashException extends Exception
 {

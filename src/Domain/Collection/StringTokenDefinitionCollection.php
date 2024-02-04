@@ -10,10 +10,9 @@ use Fifthgate\Objectivity\StringTokens\Domain\Collection\Exceptions\StringTokenC
 
 class StringTokenDefinitionCollection extends AbstractDomainEntityCollection implements StringTokenDefinitionCollectionInterface
 {
-
-    public function filterByContextValidity($context) : StringTokenDefinitionCollectionInterface
+    public function filterByContextValidity($context): StringTokenDefinitionCollectionInterface
     {
-        $filteredCollection = new StringTokenDefinitionCollection;
+        $filteredCollection = new StringTokenDefinitionCollection();
         foreach ($this->collection as $token) {
             if ($token->isValidContext($context)) {
                 $filteredCollection->add($token);

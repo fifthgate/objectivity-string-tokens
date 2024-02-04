@@ -3,9 +3,9 @@
 namespace Fifthgate\Objectivity\StringTokens\Service\Factories;
 
 use Fifthgate\Objectivity\StringTokens\Service\Factories\Exceptions\InvalidStringTokenConfigException;
-use \ReflectionClass;
+use ReflectionClass;
 use Fifthgate\Objectivity\StringTokens\Service\Interfaces\TokenServiceInterface;
-use \ReflectionException;
+use ReflectionException;
 use Fifthgate\Objectivity\StringTokens\Domain\Interfaces\StringTokenDefinitionInterface;
 use Fifthgate\Objectivity\StringTokens\Domain\Collection\StringTokenDefinitionCollection;
 use Fifthgate\Objectivity\StringTokens\Service\TokenService;
@@ -16,7 +16,6 @@ use HaydenPierce\ClassFinder\ClassFinder;
  */
 class StringTokenServiceFactory
 {
-
     /**
      * Run this factory.
      *
@@ -25,10 +24,10 @@ class StringTokenServiceFactory
      *
      * @return TokenServiceInterface  A fully-populated token service
      */
-    public function __invoke(array $config, bool $testMode = false) : TokenServiceInterface
+    public function __invoke(array $config, bool $testMode = false): TokenServiceInterface
     {
 
-        $definitionCollection = new StringTokenDefinitionCollection;
+        $definitionCollection = new StringTokenDefinitionCollection();
         $config = array_unique($config);
 
         foreach ($config as $autoloadNamespace) {
@@ -39,7 +38,7 @@ class StringTokenServiceFactory
                 }
             }
         }
-        
+
         return new TokenService($definitionCollection);
     }
 }

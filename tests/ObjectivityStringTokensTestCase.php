@@ -8,7 +8,6 @@ use Fifthgate\Objectivity\StringTokens\Laravel\Provider\StringTokenServiceProvid
 
 abstract class ObjectivityStringTokensTestCase extends TestCase
 {
-
     protected TokenServiceInterface $tokenService;
 
     protected function getPackageProviders($app)

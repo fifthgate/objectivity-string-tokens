@@ -43,7 +43,7 @@ class StringTokenServiceProvider extends ServiceProvider
         $this->app->singleton(
             TokenServiceInterface::class,
             function ($app) {
-                $factory = new StringTokenServiceFactory;
+                $factory = new StringTokenServiceFactory();
                 return $factory(config('objectivity-string-tokens'), config('app.debug', false));
             }
         );

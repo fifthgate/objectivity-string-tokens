@@ -1,7 +1,7 @@
 <?php
 
 namespace Fifthgate\Objectivity\StringTokens\Laravel\Commands;
- 
+
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
@@ -14,7 +14,7 @@ class CreateStringToken extends GeneratorCommand
      * @var string
      */
     protected $signature = 'make:stringtoken {tokenName} : The name of the token to be generated.';
- 
+
     /**
      * The console command description.
      *
@@ -52,11 +52,11 @@ class CreateStringToken extends GeneratorCommand
      */
     protected function getPath($name)
     {
-        
+
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
 
         $path = $this->laravel['path'].'/StringTokens/'.str_replace('\\', '/', $name).'.php';
-        
+
         return $path;
     }
 

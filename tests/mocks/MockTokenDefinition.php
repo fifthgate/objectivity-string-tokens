@@ -7,21 +7,21 @@ use Fifthgate\Objectivity\StringTokens\Domain\TokenDefinitions\AbstractStringTok
 
 class MockTokenDefinition extends AbstractStringTokenDefinition implements StringTokenDefinitionInterface
 {
-    const TOKEN_MACHINE_NAME = 'mocktoken';
-    
-    const TOKEN_NAME = 'Mock Token Name';
+    public const TOKEN_MACHINE_NAME = 'mocktoken';
 
-    const TOKEN_DESCRIPTION = 'Mock Token Description';
+    public const TOKEN_NAME = 'Mock Token Name';
 
-    const TOKEN_PLACEHOLDER = 'mock_token';
+    public const TOKEN_DESCRIPTION = 'Mock Token Description';
 
-    public function processToken(string $input, $context = null) : string
+    public const TOKEN_PLACEHOLDER = 'mock_token';
+
+    public function processToken(string $input, $context = null): string
     {
         $replacementString = "[".$this::TOKEN_PLACEHOLDER."]";
         return str_replace($replacementString, "Wo0t!", $input);
     }
 
-    public function isValidContext($context = null) : bool
+    public function isValidContext($context = null): bool
     {
         return true;
     }

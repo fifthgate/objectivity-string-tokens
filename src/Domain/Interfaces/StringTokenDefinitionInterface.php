@@ -6,19 +6,19 @@ use Fifthgate\Objectivity\Core\Domain\Interfaces\DomainEntityInterface;
 
 interface StringTokenDefinitionInterface extends DomainEntityInterface
 {
-    public function getTokenName() : string;
+    public function getTokenName(): string;
 
-    public function getTokenDescription() : string;
+    public function getTokenDescription(): string;
 
-    public function getTokenPlaceholder() : string;
+    public function getTokenPlaceholder(): string;
 
-    public function getTokenMachineName() : string;
+    public function getTokenMachineName(): string;
 
-    public function processToken(string $input, $context = null) : string;
+    public function processToken(string $input, $context = null): string;
 
-    public function getEncapsulatedPlaceholder() : string;
+    public function getEncapsulatedPlaceholder(): string;
 
-    public function isValidContext($context = null) : bool;
+    public function isValidContext($context = null): bool;
 
-    public function getClassName() : string;
+    public function getClassName(): string;
 }

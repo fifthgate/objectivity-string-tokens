@@ -22,7 +22,7 @@ class TokenService implements TokenServiceInterface
      *
      * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
      */
-    public function getTokenByPlaceholder(string $tokenPlaceholder) : ? StringTokenDefinitionInterface
+    public function getTokenByPlaceholder(string $tokenPlaceholder): ?StringTokenDefinitionInterface
     {
         foreach ($this->tokenDefinitions as $tokenDefinition) {
             if ($tokenDefinition->getTokenPlaceholder() == $tokenPlaceholder) {
@@ -35,7 +35,7 @@ class TokenService implements TokenServiceInterface
     /**
      * Get a list of all valid tokens for a given context
      */
-    public function getTokenDefinitions() : StringTokenDefinitionCollectionInterface
+    public function getTokenDefinitions(): StringTokenDefinitionCollectionInterface
     {
         return $this->tokenDefinitions;
     }
@@ -47,7 +47,7 @@ class TokenService implements TokenServiceInterface
      *
      * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
      */
-    public function getTokenByMachineName(string $tokenMachineName) : ? StringTokenDefinitionInterface
+    public function getTokenByMachineName(string $tokenMachineName): ?StringTokenDefinitionInterface
     {
         foreach ($this->tokenDefinitions as $tokenDefinition) {
             if ($tokenDefinition->getTokenMachineName() == $tokenMachineName) {
@@ -66,7 +66,7 @@ class TokenService implements TokenServiceInterface
      *
      * @return string                 The string, with substitutions made.
      */
-    public function processTokens(string $input, array $tokenWhitelist = [], $context = null) : string
+    public function processTokens(string $input, array $tokenWhitelist = [], $context = null): string
     {
         $detectedTokens = $this->detectTokens($input);
 
@@ -102,10 +102,10 @@ class TokenService implements TokenServiceInterface
      *
      * @return array|null An array of token objects, ready for processing, or null if no tokens were detected,
      */
-    public function detectTokens(string $input): ? array
+    public function detectTokens(string $input): ?array
     {
         $tokenDetectionPattern =  '/\[(.*?)\]/';
-        
+
         preg_match_all($tokenDetectionPattern, $input, $detectedTokens);
 
         $possibleTokens = $this->flattenStripAndDeduplicateTokens($detectedTokens);
@@ -116,7 +116,7 @@ class TokenService implements TokenServiceInterface
                 $tokenManifest[$possibleToken] = $this->getTokenByPlaceholder($possibleToken);
             }
         }
-        
+
         return !empty($tokenManifest) ? $tokenManifest : null;
     }
 
@@ -132,7 +132,7 @@ class TokenService implements TokenServiceInterface
      */
     protected function flattenStripAndDeduplicateTokens(array $tokens)
     {
-     
+
         $flattenedTokens = [];
         //Process through our initial list.
         foreach ($tokens as $delta => $token) {

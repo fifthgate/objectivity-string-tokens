@@ -13,7 +13,7 @@ class StringTokenEntityTest extends ObjectivityStringTokensTestCase
 {
     public function testTokenDefinitionIntegrity()
     {
-        $definition = new MockTokenDefinition;
+        $definition = new MockTokenDefinition();
 
         $this->assertEquals('Mock Token Name', $definition->getTokenName());
         $this->assertEquals('mocktoken', $definition->getTokenMachineName());
@@ -24,24 +24,24 @@ class StringTokenEntityTest extends ObjectivityStringTokensTestCase
 
     public function testCollection()
     {
-        $collection = new StringTokenDefinitionCollection;
-        $mockToken = new MockInvalidTokenDefinition;
-        $mockToken2 = new MockDateTokenDefinition;
+        $collection = new StringTokenDefinitionCollection();
+        $mockToken = new MockInvalidTokenDefinition();
+        $mockToken2 = new MockDateTokenDefinition();
         $collection->add($mockToken);
         $collection->add($mockToken2);
         $this->assertEquals($mockToken, $collection->first());
         $this->assertEquals($mockToken2, $collection->last());
         $this->assertEquals(2, $collection->count());
-        $date = new \DateTime;
+        $date = new \DateTime();
         $this->assertEquals(1, $collection->filterByContextValidity($date)->count());
         $this->assertEquals($mockToken2, $collection->filterByContextValidity($date)->first());
     }
 
     public function testTokenClash()
     {
-        $collection = new StringTokenDefinitionCollection;
-        $mockToken = new MockInvalidTokenDefinition;
-        $mockToken2 = new MockInvalidTokenDefinition;
+        $collection = new StringTokenDefinitionCollection();
+        $mockToken = new MockInvalidTokenDefinition();
+        $mockToken2 = new MockInvalidTokenDefinition();
         $this->expectException(StringTokenClashException::class);
         $collection->add($mockToken);
         $collection->add($mockToken2);

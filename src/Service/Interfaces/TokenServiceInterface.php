@@ -7,14 +7,14 @@ use Fifthgate\Objectivity\StringTokens\Domain\Collection\Interfaces\StringTokenD
 
 interface TokenServiceInterface
 {
-     /**
-     * Retrieve an individual token by its machine name.
-     *
-     * @param  string $tokenMachineName A token machine name
-     *
-     * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
-     */
-    public function getTokenByMachineName(string $tokenMachineName) : ? StringTokenDefinitionInterface;
+    /**
+    * Retrieve an individual token by its machine name.
+    *
+    * @param  string $tokenMachineName A token machine name
+    *
+    * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
+    */
+    public function getTokenByMachineName(string $tokenMachineName): ?StringTokenDefinitionInterface;
 
     /**
      * Retrieve an individual token by its placeholder.
@@ -23,13 +23,13 @@ interface TokenServiceInterface
      *
      * @return StringTokenDefinitionInterface|null A Token definition, or none if not found.
      */
-    public function getTokenByPlaceholder(string $tokenPlaceholder) : ? StringTokenDefinitionInterface;
+    public function getTokenByPlaceholder(string $tokenPlaceholder): ?StringTokenDefinitionInterface;
 
 
     /**
      * Get a list of all valid tokens for a given context
      */
-    public function getTokenDefinitions() : StringTokenDefinitionCollectionInterface;
+    public function getTokenDefinitions(): StringTokenDefinitionCollectionInterface;
 
     /**
      * Detect all the tokens within an input string.
@@ -38,7 +38,7 @@ interface TokenServiceInterface
      *
      * @return array|null An array of token objects, ready for processing, or null if no tokens were detected,
      */
-    public function detectTokens(string $input): ? array;
+    public function detectTokens(string $input): ?array;
 
     /**
      * Process a string to detect and replace tokens within it.
@@ -49,5 +49,5 @@ interface TokenServiceInterface
      *
      * @return string                 The string, with substitutions made.
      */
-    public function processTokens(string $input, array $tokenWhitelist = [], $context = null) : string;
+    public function processTokens(string $input, array $tokenWhitelist = [], $context = null): string;
 }

@@ -13,22 +13,22 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
 {
     private function makeDummyService()
     {
-        $collection = new StringTokenDefinitionCollection;
-        $mockToken = new MockTokenDefinition;
+        $collection = new StringTokenDefinitionCollection();
+        $mockToken = new MockTokenDefinition();
         $collection->add($mockToken);
 
-        $dateToken = new StartDateTokenDefinition;
+        $dateToken = new StartDateTokenDefinition();
         $collection->add($dateToken);
         return new TokenService($collection);
     }
     public function testServiceConstruction()
     {
-        
-        $collection = new StringTokenDefinitionCollection;
-        $mockToken = new MockTokenDefinition;
+
+        $collection = new StringTokenDefinitionCollection();
+        $mockToken = new MockTokenDefinition();
         $collection->add($mockToken);
 
-        $dateToken = new StartDateTokenDefinition;
+        $dateToken = new StartDateTokenDefinition();
         $collection->add($dateToken);
         $service = new TokenService($collection);
 
@@ -38,7 +38,7 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
         $this->assertNull($service->getTokenByPlaceholder('faketoken'));
 
         $inputText = "Lorem ipsum dolor sit amet, ad conspectitur adelescing [mock_token], @ [start_date]";
-        $date = new Carbon;
+        $date = new Carbon();
         $outputText = $service->processTokens($inputText, [], $date);
         $this->assertEquals("Lorem ipsum dolor sit amet, ad conspectitur adelescing Wo0t!, @ {$date->format('Y-m-d')}", $outputText);
     }
@@ -47,7 +47,7 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
     {
         $service = $this->makeDummyService();
         $inputText = "Lorem ipsum dolor sit amet, ad conspectitur adelescing [mock_token], @ [start_date]";
-        $date = new Carbon;
+        $date = new Carbon();
         $filteredOutputText = $service->processTokens($inputText, ['mocktoken'], $date);
         $this->assertEquals("Lorem ipsum dolor sit amet, ad conspectitur adelescing Wo0t!, @ [start_date]", $filteredOutputText);
     }
@@ -63,11 +63,11 @@ class StringTokenServiceTest extends ObjectivityStringTokensTestCase
     public function testGetTokenDefinitions()
     {
 
-        $collection = new StringTokenDefinitionCollection;
-        $mockToken = new MockTokenDefinition;
+        $collection = new StringTokenDefinitionCollection();
+        $mockToken = new MockTokenDefinition();
         $collection->add($mockToken);
 
-        $dateToken = new StartDateTokenDefinition;
+        $dateToken = new StartDateTokenDefinition();
         $collection->add($dateToken);
         $service = new TokenService($collection);
         $this->assertEquals($collection, $service->getTokenDefinitions());
