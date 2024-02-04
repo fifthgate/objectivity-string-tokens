@@ -21,7 +21,7 @@ class StringTokenDefinitionCollection extends AbstractDomainEntityCollection imp
         return $filteredCollection;
     }
 
-    public function add(DomainEntityInterface $domainEntity)
+    public function add(DomainEntityInterface $domainEntity): void
     {
         $errors = $this->validateProposedTokenAddition($domainEntity);
         if (!empty($errors)) {
