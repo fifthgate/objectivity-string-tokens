@@ -4,29 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f7e90aef07d5ea63bcc6ee8571d1052",
+    "content-hash": "3c70d5ae18414073d028dd53e70b4a5d",
     "packages": [
         {
             "name": "fifthgate/objectivity-core",
-            "version": "v1.0.1",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:fifthgate/objectivity-core.git",
-                "reference": "4eb42f01bcabdcaa84c30e4601e7aeb18064aa04"
+                "reference": "1ea1bcf71b1e2b78a08968b95235f5e37a16a860"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fifthgate/objectivity-core/zipball/4eb42f01bcabdcaa84c30e4601e7aeb18064aa04",
-                "reference": "4eb42f01bcabdcaa84c30e4601e7aeb18064aa04",
+                "url": "https://api.github.com/repos/fifthgate/objectivity-core/zipball/1ea1bcf71b1e2b78a08968b95235f5e37a16a860",
+                "reference": "1ea1bcf71b1e2b78a08968b95235f5e37a16a860",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "guzzlehttp/guzzle": "^7.2"
             },
             "require-dev": {
-                "orchestra/testbench": "9999999-dev",
-                "orchestra/testbench-browser-kit": "9999999-dev",
-                "phpunit/phpunit": "^9.3.3"
+                "orchestra/testbench": "^8.21",
+                "orchestra/testbench-browser-kit": "^8.5",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "autoload": {
@@ -52,10 +53,10 @@
             "description": "A simple library providing domain-driven design objects for Laravel to use in other projects.",
             "homepage": "https://github.com/fifthgate/objectivity-core",
             "support": {
-                "source": "https://github.com/fifthgate/objectivity-core/tree/v2.0.0",
+                "source": "https://github.com/fifthgate/objectivity-core/tree/v2.1.1",
                 "issues": "https://github.com/fifthgate/objectivity-core/issues"
             },
-            "time": "2021-12-22T14:54:41+00:00"
+            "time": "2024-02-04T10:58:19+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

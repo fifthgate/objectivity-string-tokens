@@ -30,7 +30,7 @@
         }
     ],
     "require": {
-        "fifthgate/objectivity-core": "^1.0.0",
+        "fifthgate/objectivity-core": "^2.1.1",
         "haydenpierce/class-finder": "^0.4.3"
     }
 }
